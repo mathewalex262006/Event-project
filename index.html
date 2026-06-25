@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Hub — Discover and Register for Events</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Navbar ===== -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Event<span class="dot">Hub</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-registrations.html">My registrations</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="nav-actions">
+        <!-- filled in by main.js depending on login state -->
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow"><span>Explore</span><span>Register</span><span>Participate</span></p>
+        <h1>Discover and<br />Register For <span class="accent">Events</span></h1>
+        <p class="lead">Find amazing events around you and register with ease.</p>
+
+        <form class="search-bar" id="heroSearchForm">
+          <input type="search" id="heroSearchInput" placeholder="Search events by name…" aria-label="Search events by name" />
+          <button type="submit" class="btn btn-primary">Search</button>
+          <button type="button" class="btn btn-outline" id="heroFilterBtn">Filter</button>
+        </form>
+
+        <div class="hero-stats">
+          <div class="stat"><strong id="statTotal">–</strong><span>Events open</span></div>
+          <div class="stat"><strong>4</strong><span>Categories</span></div>
+          <div class="stat"><strong id="statFree">–</strong><span>Free to join</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Featured events ===== -->
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <h2>Happening soon</h2>
+          <p>A few events you might like to register for.</p>
+        </div>
+        <a href="events.html" class="btn btn-outline btn-sm">View all events →</a>
+      </div>
+      <div class="event-grid" id="featuredGrid"></div>
+    </section>
+  </main>
+
+  <footer>Event Hub · Built with HTML, CSS &amp; JavaScript · Hosted on GitHub Pages</footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // hero stats
+      document.getElementById("statTotal").textContent = EVENTS.length;
+      document.getElementById("statFree").textContent = EVENTS.filter(function (e) { return e.fee === 0; }).length;
+
+      // hero search -> jump to events page with the query
+      document.getElementById("heroSearchForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const q = document.getElementById("heroSearchInput").value.trim();
+        window.location.href = "events.html" + (q ? "?q=" + encodeURIComponent(q) : "");
+      });
+      document.getElementById("heroFilterBtn").addEventListener("click", function () {
+        window.location.href = "events.html#filters";
+      });
+
+      // featured = next 3 upcoming events by date
+      const upcoming = EVENTS.slice().sort(function (a, b) { return new Date(a.date) - new Date(b.date); }).slice(0, 3);
+      const grid = document.getElementById("featuredGrid");
+      grid.innerHTML = upcoming.map(renderCard).join("");
+    });
+
+    function renderCard(ev) {
+      return (
+        '<div class="event-card">' +
+          '<div class="event-thumb">' +
+            '<img src="' + ev.image + '" alt="' + ev.name + '" loading="lazy" />' +
+            '<span class="cat-tag cat-' + ev.category + '">' + ev.category + "</span>" +
+          "</div>" +
+          '<div class="event-body">' +
+            "<h3>" + ev.name + "</h3>" +
+            '<div class="event-meta">' +
+              "<span>📅 " + ehFormatDate(ev.date) + "</span>" +
+              "<span>📍 " + ev.venue + "</span>" +
+            "</div>" +
+            '<p class="event-desc">' + ev.description + "</p>" +
+            '<div class="event-foot">' +
+              '<span class="fee">' + ehFormatFee(ev.fee) + (ev.fee > 0 ? " <small>/ person</small>" : "") + "</span>" +
+              '<a class="btn btn-primary btn-sm" href="registration.html?id=' + ev.id + '">Register</a>' +
+            "</div>" +
+          "</div>" +
+        "</div>"
+      );
+    }
+  </script>
+</body>
+</html>

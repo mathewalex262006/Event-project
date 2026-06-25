@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — Event Hub</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Event<span class="dot">Hub</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-registrations.html">My registrations</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="nav-actions"></div>
+    </div>
+  </header>
+
+  <main id="main" class="section container">
+    <div id="notFound" class="empty-state hidden">
+      <div class="glyph">🤔</div>
+      <p>We couldn't find that event.</p>
+      <a href="events.html" class="btn btn-primary btn-sm">Back to events</a>
+    </div>
+
+    <div id="regContent" class="hidden">
+      <div class="section-head">
+        <div>
+          <h2>Complete your registration</h2>
+          <p>Double-check the event details, then fill in your information below.</p>
+        </div>
+      </div>
+
+      <div class="reg-layout">
+        <div class="reg-summary">
+          <img id="sumImage" src="" alt="" />
+          <div class="body">
+            <span class="cat-tag" id="sumCat" style="position:static; display:inline-block; margin-bottom:10px;"></span>
+            <h2 id="sumName"></h2>
+            <div class="event-meta">
+              <span id="sumDate">📅</span>
+              <span id="sumVenue">📍</span>
+              <span id="sumFee">💳</span>
+            </div>
+            <p class="event-desc" id="sumDesc" style="margin-top:12px;"></p>
+          </div>
+        </div>
+
+        <div class="reg-form-card">
+          <div id="successPanel" class="success-panel hidden">
+            <div class="glyph">✓</div>
+            <h2>Registration successful!</h2>
+            <p style="color:var(--muted);">You're registered for <strong id="successEventName"></strong>. A confirmation has been saved to your account.</p>
+            <div style="display:flex; gap:10px; justify-content:center; margin-top:18px; flex-wrap:wrap;">
+              <a href="my-registrations.html" class="btn btn-primary">View my registrations</a>
+              <a href="events.html" class="btn btn-outline">Browse more events</a>
+            </div>
+          </div>
+
+          <form id="regForm">
+            <div class="form-msg" id="formMsg"></div>
+            <div class="field">
+              <label for="regName">Full name</label>
+              <input type="text" id="regName" required />
+            </div>
+            <div class="field">
+              <label for="regEmail">Email</label>
+              <input type="email" id="regEmail" required />
+            </div>
+            <div class="field">
+              <label for="regPhone">Phone number</label>
+              <input type="tel" id="regPhone" placeholder="Optional" />
+            </div>
+            <div class="field">
+              <label for="regNotes">Anything else we should know?</label>
+              <textarea id="regNotes" rows="3" placeholder="Optional — dietary needs, team name, etc."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Confirm registration</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>Event Hub · Built with HTML, CSS &amp; JavaScript · Hosted on GitHub Pages</footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>

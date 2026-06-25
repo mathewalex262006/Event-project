@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — Event Hub</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Event<span class="dot">Hub</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-registrations.html">My registrations</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="nav-actions"></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <h2>Upcoming events</h2>
+          <p>Browse by category or search for something specific.</p>
+        </div>
+      </div>
+
+      <form id="searchForm" class="search-bar" style="margin-bottom:20px; max-width:520px;">
+        <input type="search" id="searchInput" placeholder="Search events by name…" aria-label="Search events by name" />
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div class="filter-row" id="filters">
+        <button class="chip active" data-cat="All">All</button>
+        <button class="chip" data-cat="Technical">Technical</button>
+        <button class="chip" data-cat="Cultural">Cultural</button>
+        <button class="chip" data-cat="Sports">Sports</button>
+        <button class="chip" data-cat="Workshop">Workshop</button>
+      </div>
+
+      <div class="event-grid" id="eventGrid"></div>
+      <div class="empty-state hidden" id="emptyState">
+        <div class="glyph">🔍</div>
+        <p>No events match your search/filter. Try clearing it.</p>
+      </div>
+    </section>
+
+    <section class="section container" style="border-top:1px solid var(--line);">
+      <div class="section-head">
+        <div>
+          <h2>Event gallery</h2>
+          <p>A look at past and upcoming event moments. Click an image to enlarge.</p>
+        </div>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+  </main>
+
+  <footer>Event Hub · Built with HTML, CSS &amp; JavaScript · Hosted on GitHub Pages</footer>
+
+  <!-- Lightbox for the gallery -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <img id="lightboxImg" src="" alt="Enlarged gallery photo" />
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/events.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Registrations — Event Hub</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Event<span class="dot">Hub</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-registrations.html">My registrations</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="nav-actions"></div>
+    </div>
+  </header>
+
+  <main id="main" class="section container">
+    <div class="section-head">
+      <div>
+        <h2>My registrations</h2>
+        <p>Everything you've signed up for, in one place.</p>
+      </div>
+      <a href="events.html" class="btn btn-outline btn-sm">Browse events →</a>
+    </div>
+
+    <div id="regList"></div>
+
+    <div class="empty-state hidden" id="emptyState">
+      <div class="glyph">🗒️</div>
+      <p>You haven't registered for any events yet.</p>
+      <a href="events.html" class="btn btn-primary btn-sm">Find an event</a>
+    </div>
+  </main>
+
+  <footer>Event Hub · Built with HTML, CSS &amp; JavaScript · Hosted on GitHub Pages</footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/myregistrations.js"></script>
+</body>
+</html>

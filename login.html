@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Event Hub</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Event<span class="dot">Hub</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-registrations.html">My registrations</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="nav-actions"></div>
+    </div>
+  </header>
+
+  <main id="main" class="auth-wrap">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="subhead">Log in to register for events and manage your registrations.</p>
+
+      <div class="form-msg" id="formMsg"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+
+      <p class="auth-foot">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("formMsg");
+
+      function showMsg(text, type) {
+        msg.textContent = text;
+        msg.className = "form-msg show " + type;
+      }
+
+      const user = ehFindUserByEmail(email);
+      if (!user || user.password !== password) {
+        showMsg("Incorrect email or password.", "error");
+        return;
+      }
+
+      ehSetSession(user);
+      showMsg("Logged in! Redirecting…", "success");
+      setTimeout(function () {
+        const params = new URLSearchParams(window.location.search);
+        window.location.href = params.get("redirect") || "dashboard.html";
+      }, 500);
+    });
+  </script>
+</body>
+</html>

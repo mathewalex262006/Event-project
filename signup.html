@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — Event Hub</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Event<span class="dot">Hub</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-registrations.html">My registrations</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="nav-actions"></div>
+    </div>
+  </header>
+
+  <main id="main" class="auth-wrap">
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p class="subhead">Sign up to register for events and track them in one place.</p>
+
+      <div class="form-msg" id="formMsg"></div>
+
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="new-password" minlength="4" required />
+          <div class="field-hint">At least 4 characters.</div>
+        </div>
+        <div class="field">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" autocomplete="new-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+      </form>
+
+      <p class="auth-foot">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const msg = document.getElementById("formMsg");
+
+      function showMsg(text, type) {
+        msg.textContent = text;
+        msg.className = "form-msg show " + type;
+      }
+
+      if (!name || !email || !password) {
+        showMsg("Please fill in every field.", "error");
+        return;
+      }
+      if (password.length < 4) {
+        showMsg("Password must be at least 4 characters.", "error");
+        return;
+      }
+      if (password !== confirmPassword) {
+        showMsg("Passwords do not match.", "error");
+        return;
+      }
+      if (ehFindUserByEmail(email)) {
+        showMsg("An account with that email already exists. Try logging in instead.", "error");
+        return;
+      }
+
+      const users = ehGetUsers();
+      users.push({ name: name, email: email, password: password });
+      ehSaveUsers(users);
+      ehSetSession({ name: name, email: email });
+
+      showMsg("Account created! Redirecting…", "success");
+      setTimeout(function () {
+        const params = new URLSearchParams(window.location.search);
+        window.location.href = params.get("redirect") || "dashboard.html";
+      }, 700);
+    });
+  </script>
+</body>
+</html>
